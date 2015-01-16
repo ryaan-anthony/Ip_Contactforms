@@ -1,0 +1,8 @@
+<tr>
+    <td><input type="text" name="<?php echo $this->getName().'['.$this->getData('id').'][code]';?>" value="<?php echo $this->getData('code');?>"/></td>
+    <td><input type="text" name="<?php echo $this->getName().'['.$this->getData('id').'][label]';?>" value="<?php echo $this->getData('label');?>"/></td>
+    <td><input type="text" name="<?php echo $this->getName().'['.$this->getData('id').'][type]';?>" value="<?php echo $this->getData('type');?>"/></td>
+    <td><input type="text" name="<?php echo $this->getName().'['.$this->getData('id').'][position]';?>" value="<?php echo $this->getData('position');?>"/></td>
+    <td><input type="checkbox" name="<?php echo $this->getName().'['.$this->getData('id').'][required]';?>" #{is_checked} <?php echo $this->getData('required') == "1" ? "checked='checked'" : '';?>/></td>
+    <td><button type="button" onclick="field_delete(this);" class="delete icon-btn"><span><span>Delete</span></span></button></td>
+</tr>

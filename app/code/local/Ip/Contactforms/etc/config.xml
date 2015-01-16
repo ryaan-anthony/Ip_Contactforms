@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<config>
+
+    <modules>
+        <Ip_Contactforms>
+            <version>0.1.0</version>
+        </Ip_Contactforms>
+    </modules>
+
+    <global>
+        <helpers>
+            <contactforms>
+                <class>Ip_Contactforms_Helper</class>
+            </contactforms>
+        </helpers>
+        <blocks>
+            <contactforms>
+                <class>Ip_Contactforms_Block</class>
+            </contactforms>
+        </blocks>
+        <models>
+            <contactforms>
+                <class>Ip_Contactforms_Model</class>
+                <resourceModel>contactforms_resource</resourceModel>
+            </contactforms>
+            <contactforms_resource>
+                <class>Ip_Contactforms_Model_Resource</class>
+                <entities>
+                    <forms>
+                        <table>contactforms_forms</table>
+                    </forms>
+                    <fields>
+                        <table>contactforms_fields</table>
+                    </fields>
+                </entities>
+            </contactforms_resource>
+        </models>
+        <resources>
+            <contactforms_setup>
+                <setup>
+                    <module>Ip_Contactforms</module>
+                    <class>Mage_Core_Model_Resource_Setup</class>
+                </setup>
+            </contactforms_setup>
+        </resources>
+        <template>
+            <email>
+                <contactforms_request_template translate="label">
+                    <label>Contact Form Request</label>
+                    <file>contact_form_request.html</file>
+                    <type>text</type>
+                </contactforms_request_template>
+                <contactforms_response_template translate="label">
+                    <label>Contact Form Response</label>
+                    <file>contact_form_response.html</file>
+                    <type>text</type>
+                </contactforms_response_template>
+            </email>
+        </template>
+    </global>
+
+    <frontend>
+        <layout>
+            <updates>
+                <contactforms>
+                    <file>contactforms.xml</file>
+                </contactforms>
+            </updates>
+        </layout>
+        <routers>
+            <contactforms>
+                <use>standard</use>
+                <args>
+                    <module>Ip_Contactforms</module>
+                    <frontName>contactforms</frontName>
+                </args>
+            </contactforms>
+        </routers>
+    </frontend>
+
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <contactforms before="Mage_Adminhtml">Ip_Contactforms_Adminhtml</contactforms>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <contactforms>
+                    <file>contactforms.xml</file>
+                </contactforms>
+            </updates>
+        </layout>
+    </adminhtml>
+
+</config>

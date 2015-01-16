@@ -1,0 +1,82 @@
+
+<table id="formbuilder-fields">
+    <thead>
+        <tr>
+            <th><label for="field-code">Code</label></th>
+            <th><label for="field-label">Label</label></th>
+            <th><label for="field-type">Type</label></th>
+            <th><label for="field-position">Position</label></th>
+            <th><label for="field-required">Required</label></th>
+            <th></th>
+        </tr>
+        <tr>
+            <td><input type="text" data-id="code" id="field-code" class="form-field required-field"/></td>
+            <td><input type="text" data-id="label" id="field-label" class="form-field required-field"/></td>
+            <td>
+                <select id="field-type" data-id="type" class="form-field required-field">
+                    <option value="-1">- select -</option>
+                    <option value="text">Text</option>
+                    <option value="email">Email</option>
+                    <option value="textarea">Text Field</option>
+                </select>
+            </td>
+            <td><input type="text" id="field-position" data-id="position" class="form-field required-field"/></td>
+            <td><input type="checkbox" id="field-required" data-id="required" class="form-field"/></td>
+            <td><button id="field-add" type="button"><span><span>Add Field</span></span></button></td>
+        </tr>
+    </thead>
+    <tbody>
+        <?php $iterator = 0;?>
+        <?php foreach($this->getFields() as $field):?>
+            <?php echo $this->getFieldTemplate()->addData($field->getData())->setId($iterator++)->toHtml();?>
+        <?php endforeach;?>
+    </tbody>
+</table>
+
+<script>
+    $('field-add').observe('click', function(){
+        var hasErrors = false;
+        $$('.required-field').each(function(elem){
+            elem.setStyle({backgroundColor: '#FFF'});
+            if(!elem.value.length || elem.value == -1){
+                hasErrors = true;
+                elem.setStyle({backgroundColor: '#FFB6B6'});
+            }
+        });
+        if(hasErrors){alert('The highlighted fields are required.');return;}
+
+        var empty_template = new Template(<?php echo json_encode($this->getEmptyTemplate());?>);
+        var data = new Array();
+        $$('.form-field').each(function(elem){
+            if(elem.value.length && elem.value != -1){
+                if(elem.readAttribute('type') == 'checkbox'){
+                    data[elem.readAttribute('data-id')] = elem.checked;
+                    data['is_checked'] = elem.checked ? 'checked="checked"' : '';
+                } else {
+                    data[elem.readAttribute('data-id')] = elem.value;
+                }
+            }
+            if(elem.options){
+                elem.options[0].selected = true;
+            } else if(elem.readAttribute('type') == 'checkbox'){
+                elem.checked = false;
+            } else {
+                elem.value = '';
+            }
+
+        });
+        data['id'] = $('formbuilder-fields').select('tbody tr').length;
+        var template = empty_template.evaluate(data);
+        $('formbuilder-fields').select('tbody').first().insert(template);
+        $('field-code').focus();
+    });
+
+
+    field_delete = function(elem){
+        $(elem).up('tr').remove();
+    };
+</script>
+
+
+
+

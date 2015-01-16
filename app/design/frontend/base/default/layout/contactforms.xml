@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<layout>
+    <contactforms_forms_index>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="contactforms/form" name="form" template="contactforms/form.phtml"/>
+        </reference>
+    </contactforms_forms_index>
+</layout>

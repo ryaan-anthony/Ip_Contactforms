@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<layout>
+    <adminhtml_forms_index>
+        <reference name="content">
+            <block type="contactforms/adminhtml_forms" name="forms" />
+        </reference>
+    </adminhtml_forms_index>
+
+    <adminhtml_forms_edit>
+        <update handle="editor" />
+        <reference name="content">
+            <block type="contactforms/adminhtml_forms_edit" name="forms_edit" />
+        </reference>
+    </adminhtml_forms_edit>
+</layout>

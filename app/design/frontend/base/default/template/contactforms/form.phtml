@@ -1,0 +1,49 @@
+<?php
+/**
+ * @var Ip_Contactforms_Block_Form $this
+ */
+?>
+<?php
+$form = $this->getForm();
+?>
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+<div class="page-title">
+    <h1><?php echo $form->getTitle() ?></h1>
+</div>
+<?php if($form->getContent()):?>
+<div class="page-intro">
+    <?php echo $form->getContent() ?>
+</div>
+<?php endif;?>
+<form action="<?php echo $this->getFormAction(); ?>" id="contactForm" method="post">
+    <div class="fieldset">
+        <ul class="form-list">
+            <?php foreach($form->getFields() as $field):?>
+                <li class="wide">
+                    <div class="field">
+                        <label for="field-<?php echo $field->getId() ?>" class="<?php echo $field->getRequired()?"required":""; ?>"><?php echo $field->getRequired()?"<em>*</em>":""; ?><?php echo $field->getLabel() ?></label>
+                        <div class="input-box">
+                            <?php if($field->getType() == 'textarea'):?>
+                                <textarea name="field[<?php echo $field->getId() ?>]" id="field-<?php echo $field->getId() ?>" title="<?php echo $this->escapeHtml($field->getLabel()) ?>" class="input-text <?php echo $field->getRequired()?"required-entry":""; ?>" cols="5" rows="3"></textarea>
+                            <?php elseif($field->getType() == 'email'):?>
+                                <input name="field[<?php echo $field->getId() ?>]" id="field-<?php echo $field->getId() ?>" title="<?php echo $this->escapeHtml($field->getLabel()) ?>" class="input-text validate-email <?php echo $field->getRequired()?"required-entry":""; ?>" type="text" />
+                            <?php else:?>
+                                <input name="field[<?php echo $field->getId() ?>]" id="field-<?php echo $field->getId() ?>" title="<?php echo $this->escapeHtml($field->getLabel()) ?>" class="input-text <?php echo $field->getRequired()?"required-entry":""; ?>" type="text" />
+                            <?php endif;?>
+                        </div>
+                    </div>
+                </li>
+            <?php endforeach;?>
+        </ul>
+    </div>
+    <div class="buttons-set">
+        <p class="required"><?php echo Mage::helper('contactforms')->__('* Required Fields') ?></p>
+        <input type="text" name="hideit" id="hideit" value="" style="display:none !important;" />
+        <button type="submit" title="<?php echo Mage::helper('contactforms')->__('Submit') ?>" class="button"><span><span><?php echo Mage::helper('contactforms')->__('Submit') ?></span></span></button>
+    </div>
+</form>
+<script type="text/javascript">
+    //<![CDATA[
+    var contactForm = new VarienForm('contactForm', true);
+    //]]>
+</script>
